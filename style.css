@@ -82,7 +82,43 @@ h1 {
   font-weight: bold;
 }
 
-/* ===== 次へボタン・もう一度ボタン ===== */
+/* ===== タイトル画面 ===== */
+.lead {
+  margin: 0 0 32px;
+  font-size: 18px;
+  line-height: 1.8;
+}
+
+#total {
+  margin: 0 4px;
+  font-size: 28px;
+  font-weight: bold;
+  color: #16a34a;
+}
+
+#start {
+  padding: 16px 64px;
+  font-size: 20px;
+}
+
+/* ===== 画面が切り替わるときにふわっと出す ===== */
+section {
+  animation: fadeIn 0.4s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ===== スタート・次へ・もう一度ボタン ===== */
+#start,
 #next,
 #retry {
   padding: 12px 32px;
@@ -94,6 +130,7 @@ h1 {
   cursor: pointer;
 }
 
+#start:hover,
 #next:hover,
 #retry:hover {
   background: #15803d;

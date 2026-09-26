@@ -10,19 +10,28 @@
   <main class="card">
     <h1>クイズゲーム</h1>
 
-    <p id="question"></p>
+    <!-- タイトル画面 -->
+    <section id="title-screen">
+      <p class="lead">日本の地理クイズ！<br>全<span id="total"></span>問に挑戦しよう</p>
+      <button id="start">スタート</button>
+    </section>
 
-    <div id="choices">
-      <button></button>
-      <button></button>
-      <button></button>
-      <button></button>
-    </div>
+    <!-- ゲーム画面 -->
+    <section id="game-screen" hidden>
+      <p id="question"></p>
 
-    <p id="result"></p>
+      <div id="choices">
+        <button></button>
+        <button></button>
+        <button></button>
+        <button></button>
+      </div>
 
-    <button id="next">次の問題へ</button>
-    <button id="retry" hidden>もう一度遊ぶ</button>
+      <p id="result"></p>
+
+      <button id="next">次の問題へ</button>
+      <button id="retry" hidden>もう一度遊ぶ</button>
+    </section>
   </main>
 
   <script src="script.js"></script>

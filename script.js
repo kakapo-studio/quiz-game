@@ -40,6 +40,10 @@ let score = 0;     // 正解した数
 let quizList = []; // 今回出題する問題（シャッフル済み）
 
 // ===== 画面の部品 =====
+const titleScreen = document.getElementById("title-screen");
+const gameScreen = document.getElementById("game-screen");
+const startButton = document.getElementById("start");
+const totalText = document.getElementById("total");
 const questionText = document.getElementById("question");
 const choicesBox = document.getElementById("choices");
 const choiceButtons = document.querySelectorAll("#choices button");
@@ -124,5 +128,12 @@ retryButton.addEventListener("click", () => {
   startGame();
 });
 
-// ===== 最初のスタート =====
-startGame();
+// ===== 「スタート」が押されたとき =====
+startButton.addEventListener("click", () => {
+  titleScreen.hidden = true;  // タイトル画面を隠す
+  gameScreen.hidden = false;  // ゲーム画面を出す
+  startGame();
+});
+
+// ===== タイトル画面に問題数を表示 =====
+totalText.textContent = questions.length;
