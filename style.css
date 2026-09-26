@@ -40,6 +40,31 @@ h1 {
   color: #16a34a;
 }
 
+/* ===== 進み具合（問題 3 / 10 とバー） ===== */
+.progress {
+  margin: 0 0 20px;
+}
+
+#progress-text {
+  margin: 0 0 8px;
+  font-size: 14px;
+  color: #6b7280;
+}
+
+.progress-bar {
+  height: 8px;
+  background: #e5e7eb;
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+#progress-fill {
+  width: 0;
+  height: 100%;
+  background: #16a34a;
+  transition: width 0.3s ease;
+}
+
 /* ===== 問題文 ===== */
 #question {
   margin: 0 0 24px;
@@ -101,8 +126,34 @@ h1 {
   font-size: 20px;
 }
 
+/* ===== 結果エリア ===== */
+.summary-label {
+  margin: 0;
+  font-size: 14px;
+  color: #6b7280;
+}
+
+#score-text {
+  margin: 8px 0 0;
+  font-size: 48px;
+  font-weight: bold;
+  color: #16a34a;
+}
+
+#rate-text {
+  margin: 0 0 16px;
+  color: #6b7280;
+}
+
+#comment {
+  margin: 0 0 32px;
+  font-size: 18px;
+  font-weight: bold;
+}
+
 /* ===== 画面が切り替わるときにふわっと出す ===== */
-section {
+section,
+#summary {
   animation: fadeIn 0.4s ease;
 }
 

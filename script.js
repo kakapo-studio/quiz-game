@@ -1,26 +1,4 @@
-// ===== 問題のデータ =====
-const questions = [
-  {
-    text: "日本で一番高い山は？",
-    choices: ["富士山", "北岳", "奥穂高岳", "槍ヶ岳"],
-    answer: "富士山",
-  },
-  {
-    text: "日本で一番長い川は？",
-    choices: ["利根川", "信濃川", "石狩川", "北上川"],
-    answer: "信濃川",
-  },
-  {
-    text: "日本で一番大きい湖は？",
-    choices: ["霞ヶ浦", "猪苗代湖", "琵琶湖", "サロマ湖"],
-    answer: "琵琶湖",
-  },
-  {
-    text: "日本で一番大きい都道府県は？",
-    choices: ["東京都", "大阪府", "北海道", "千葉県"],
-    answer: "北海道",
-  },
-];
+// ※ 問題のデータ（questions）は questions.js に書いてあります
 
 // ===== 配列をシャッフルした「コピー」を返す =====
 function shuffle(array) {
@@ -40,15 +18,26 @@ let score = 0;     // 正解した数
 let quizList = []; // 今回出題する問題（シャッフル済み）
 
 // ===== 画面の部品 =====
+// タイトル画面
 const titleScreen = document.getElementById("title-screen");
-const gameScreen = document.getElementById("game-screen");
 const startButton = document.getElementById("start");
 const totalText = document.getElementById("total");
+
+// ゲーム画面：問題を解くエリア
+const gameScreen = document.getElementById("game-screen");
+const quizArea = document.getElementById("quiz-area");
+const progressText = document.getElementById("progress-text");
+const progressFill = document.getElementById("progress-fill");
 const questionText = document.getElementById("question");
-const choicesBox = document.getElementById("choices");
 const choiceButtons = document.querySelectorAll("#choices button");
 const result = document.getElementById("result");
 const nextButton = document.getElementById("next");
+
+// ゲーム画面：結果エリア
+const summary = document.getElementById("summary");
+const scoreText = document.getElementById("score-text");
+const rateText = document.getElementById("rate-text");
+const comment = document.getElementById("comment");
 const retryButton = document.getElementById("retry");
 
 // ===== ゲームを最初から始める =====
@@ -56,8 +45,8 @@ function startGame() {
   quizList = shuffle(questions); // 問題の順番をシャッフル
   current = 0;
   score = 0;
-  choicesBox.hidden = false;     // 選択肢を表示し直す
-  retryButton.hidden = true;     // 「もう一度遊ぶ」を隠す
+  quizArea.hidden = false; // 問題エリアを出す
+  summary.hidden = true;   // 結果エリアを隠す
   showQuestion();
 }
 
@@ -66,7 +55,11 @@ function showQuestion() {
   const q = quizList[current];
   const choices = shuffle(q.choices); // 選択肢をシャッフル
 
-  questionText.textContent = (current + 1) + "問目：" + q.text;
+  // 進み具合（例：問題 3 / 10）とバーの長さ
+  progressText.textContent = "問題 " + (current + 1) + " / " + quizList.length;
+  progressFill.style.width = ((current + 1) / quizList.length) * 100 + "%";
+
+  questionText.textContent = q.text;
 
   choiceButtons.forEach((button, i) => {
     button.textContent = choices[i];
@@ -78,13 +71,29 @@ function showQuestion() {
   nextButton.hidden = true; // 「次へ」ボタンは隠しておく
 }
 
+// ===== 正答率に応じたコメントを返す =====
+function getComment(rate) {
+  if (rate === 100) {
+    return "全問正解！ 地理マスターです 🏆";
+  } else if (rate >= 70) {
+    return "すばらしい！ あと少しで満点です";
+  } else if (rate >= 40) {
+    return "なかなかの実力！ もう一度挑戦してみよう";
+  } else {
+    return "伸びしろたっぷり！ もう一度挑戦してみよう";
+  }
+}
+
 // ===== 最終結果を表示する =====
 function showResult() {
-  questionText.textContent = "終了！ " + quizList.length + "問中 " + score + "問正解でした";
-  choicesBox.hidden = true;
-  result.textContent = "";
-  nextButton.hidden = true;
-  retryButton.hidden = false;
+  const rate = Math.round((score / quizList.length) * 100); // 正答率（%）
+
+  scoreText.textContent = score + " / " + quizList.length;
+  rateText.textContent = "正答率 " + rate + "%";
+  comment.textContent = getComment(rate);
+
+  quizArea.hidden = true; // 問題エリアを隠す
+  summary.hidden = false; // 結果エリアを出す
 }
 
 // ===== 選択肢が押されたとき =====
@@ -108,6 +117,12 @@ choiceButtons.forEach((button) => {
       }
     });
 
+    // 最後の問題なら「結果を見る」、それ以外は「次の問題へ」
+    if (current === quizList.length - 1) {
+      nextButton.textContent = "結果を見る";
+    } else {
+      nextButton.textContent = "次の問題へ";
+    }
     nextButton.hidden = false;
   });
 });
