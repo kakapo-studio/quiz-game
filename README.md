@@ -41,7 +41,8 @@ quiz-game/
 ├── style.css     見た目
 ├── script.js     ゲームの動き
 ├── questions.js  問題データ
-└── images/       README 用のスクリーンショット
+├── favicon.svg   タブに表示されるアイコン
+└── images/       スクリーンショット・OGP 画像・ホーム画面用アイコン
 ```
 
 ## 問題の追加・変更方法
