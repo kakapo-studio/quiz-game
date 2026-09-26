@@ -68,7 +68,7 @@ function showQuestion() {
   });
 
   result.textContent = "";
-  nextButton.hidden = true; // 「次へ」ボタンは隠しておく
+  nextButton.classList.add("invisible"); // 「次へ」ボタンは見えなくしておく（場所は残す）
 }
 
 // ===== 正答率に応じたコメントを返す =====
@@ -123,7 +123,7 @@ choiceButtons.forEach((button) => {
     } else {
       nextButton.textContent = "次の問題へ";
     }
-    nextButton.hidden = false;
+    nextButton.classList.remove("invisible");
   });
 });
 
